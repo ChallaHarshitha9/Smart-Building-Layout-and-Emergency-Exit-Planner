@@ -1,0 +1,13 @@
+schema_version: "1.0.0"
+sensor_model_id: default_sensors
+smoke_placement: rooms_and_corridors
+smoke_detection_prob: 0.90
+smoke_false_alarm_prob: 0.02
+occupancy_noise_sd: 1.0
+occupancy_sensor_coverage: 0.80
+exit_report_reliability: 0.85
+lift_report_reliability: 0.85
+device_report_reliability: 0.90
+user_report_reliability: 0.60
+user_report_rate_per_min: 0.5
+sourcing: {basis: assumption, note: "synthetic sensor parameters; varied in experiment E3"}

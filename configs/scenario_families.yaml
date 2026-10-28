@@ -1,0 +1,80 @@
+# Layout-agnostic scenario families. Selectors are resolved against a concrete NavGraph later.
+# 'template: all' means one group per template of the building's occupant profile.
+# lift_out needs a lift; apply only to multi-floor layouts.
+schema_version: "1.0.0"
+families_id: default
+families:
+  - family_id: normal_fire
+    description: Single fire in a random room, normal occupancy.
+    ignition: {where: {mode: random_room}, time_s: 0}
+    groups: &all_groups
+      - {group_id: G_all, template_id: all, placement: {mode: distributed_by_load}}
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+  - family_id: high_occupancy
+    description: Single fire, peak occupancy.
+    ignition: {where: {mode: random_room}, time_s: 0}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: peak
+  - family_id: blocked_exit
+    description: The exit nearest to the fire becomes blocked.
+    ignition: {where: {mode: random_room}, time_s: 0}
+    events:
+      - {type: exit_blocked, time_s: 5, target: {mode: nearest_exit_to_ignition}}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+  - family_id: fire_near_exit
+    description: Fire starts in a room close to an exit.
+    ignition: {where: {mode: random_room_near_exit, nearest_fraction: 0.25}, time_s: 0}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+  - family_id: smoke_propagation
+    description: Longer horizon to let smoke spread through corridors.
+    ignition: {where: {mode: random_room}, time_s: 0}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+    horizon_s: 1200
+  - family_id: equipment_failure
+    description: A detector fails before the fire starts.
+    ignition: {where: {mode: random_room}, time_s: 30}
+    events:
+      - {type: detector_fail, time_s: 0, target: {mode: random_room}}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+  - family_id: lift_out
+    description: Lift unavailable (multi-floor layouts only).
+    ignition: {where: {mode: random_room}, time_s: 0}
+    events:
+      - {type: lift_out, time_s: 0, target: {mode: random_lift}}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+  - family_id: mobility_impaired
+    description: Extra mobility-impaired occupants scattered over random rooms.
+    ignition: {where: {mode: random_room}, time_s: 0}
+    groups:
+      - {group_id: G_all, template_id: all, placement: {mode: distributed_by_load}}
+      - {group_id: G_extra_impaired, template_id: impaired, size_override: 10, placement: {mode: random_room}}
+    sensor_model_ref: default_sensors
+    occupancy_period: typical
+  - family_id: multiple_hazards
+    description: Second fire and a blocked exit.
+    ignition: {where: {mode: random_room}, time_s: 0}
+    events:
+      - {type: exit_blocked, time_s: 10, target: {mode: random_exit}}
+      - {type: second_fire, time_s: 20, target: {mode: random_room}}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: peak
+  - family_id: hazard_variant_b
+    description: Normal fire under held-out hazard dynamics (robustness test).
+    hazard_variant: B
+    ignition: {where: {mode: random_room}, time_s: 0}
+    groups: *all_groups
+    sensor_model_ref: default_sensors
+    occupancy_period: typical

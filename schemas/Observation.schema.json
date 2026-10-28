@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "Channel": {
+      "enum": [
+        "smoke",
+        "occupancy",
+        "exit",
+        "lift",
+        "device",
+        "report"
+      ],
+      "title": "Channel",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "channel": {
+      "$ref": "#/$defs/Channel"
+    },
+    "reliability": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Reliability",
+      "type": "number"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "t_s": {
+      "minimum": 0.0,
+      "title": "T S",
+      "type": "number"
+    },
+    "target_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Id"
+    },
+    "value": {
+      "title": "Value",
+      "type": "number"
+    }
+  },
+  "required": [
+    "t_s",
+    "channel",
+    "source_id",
+    "value",
+    "reliability"
+  ],
+  "title": "Observation",
+  "type": "object"
+}

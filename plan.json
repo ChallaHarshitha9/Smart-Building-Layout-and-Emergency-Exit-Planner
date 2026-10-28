@@ -1,0 +1,767 @@
+{
+  "schema_version": "1.1.0",
+  "content_hash": null,
+  "plan_id": "CP_LY_csp_0_001",
+  "layout_geometry_hash": "57f339b70bee1ef61f3e71143c78529fbe18afd15cb01abfe8ab8cf533504112",
+  "tasks": [
+    {
+      "task_id": "T_structure",
+      "task_type": "structure",
+      "target_id": "LY_csp_0_001",
+      "duration_days": 5.0,
+      "cost_units": 500.0,
+      "preconditions": [],
+      "effects": [
+        "structure_built"
+      ],
+      "depends_on": []
+    },
+    {
+      "task_id": "T_prepare_f0",
+      "task_type": "prepare_space",
+      "target_id": "floor_0",
+      "duration_days": 2.0,
+      "cost_units": 100.0,
+      "preconditions": [
+        "structure_built"
+      ],
+      "effects": [
+        "space_prepared_f0"
+      ],
+      "depends_on": [
+        "T_structure"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_meeting_room_1",
+      "task_type": "build_walls",
+      "target_id": "R_meeting_room_1",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_meeting_room_1"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_meeting_room_1",
+      "task_type": "place_utilities",
+      "target_id": "R_meeting_room_1",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_meeting_room_1"
+      ],
+      "effects": [
+        "utilities_placed_R_meeting_room_1"
+      ],
+      "depends_on": [
+        "T_build_walls_r_meeting_room_1"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_meeting_room_2",
+      "task_type": "build_walls",
+      "target_id": "R_meeting_room_2",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_meeting_room_2"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_meeting_room_2",
+      "task_type": "place_utilities",
+      "target_id": "R_meeting_room_2",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_meeting_room_2"
+      ],
+      "effects": [
+        "utilities_placed_R_meeting_room_2"
+      ],
+      "depends_on": [
+        "T_build_walls_r_meeting_room_2"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_office_1",
+      "task_type": "build_walls",
+      "target_id": "R_office_1",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_office_1"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_office_1",
+      "task_type": "place_utilities",
+      "target_id": "R_office_1",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_office_1"
+      ],
+      "effects": [
+        "utilities_placed_R_office_1"
+      ],
+      "depends_on": [
+        "T_build_walls_r_office_1"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_office_2",
+      "task_type": "build_walls",
+      "target_id": "R_office_2",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_office_2"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_office_2",
+      "task_type": "place_utilities",
+      "target_id": "R_office_2",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_office_2"
+      ],
+      "effects": [
+        "utilities_placed_R_office_2"
+      ],
+      "depends_on": [
+        "T_build_walls_r_office_2"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_office_3",
+      "task_type": "build_walls",
+      "target_id": "R_office_3",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_office_3"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_office_3",
+      "task_type": "place_utilities",
+      "target_id": "R_office_3",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_office_3"
+      ],
+      "effects": [
+        "utilities_placed_R_office_3"
+      ],
+      "depends_on": [
+        "T_build_walls_r_office_3"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_office_4",
+      "task_type": "build_walls",
+      "target_id": "R_office_4",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_office_4"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_office_4",
+      "task_type": "place_utilities",
+      "target_id": "R_office_4",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_office_4"
+      ],
+      "effects": [
+        "utilities_placed_R_office_4"
+      ],
+      "depends_on": [
+        "T_build_walls_r_office_4"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_open_office_1",
+      "task_type": "build_walls",
+      "target_id": "R_open_office_1",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_open_office_1"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_open_office_1",
+      "task_type": "place_utilities",
+      "target_id": "R_open_office_1",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_open_office_1"
+      ],
+      "effects": [
+        "utilities_placed_R_open_office_1"
+      ],
+      "depends_on": [
+        "T_build_walls_r_open_office_1"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_reception_1",
+      "task_type": "build_walls",
+      "target_id": "R_reception_1",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_reception_1"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_reception_1",
+      "task_type": "place_utilities",
+      "target_id": "R_reception_1",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_reception_1"
+      ],
+      "effects": [
+        "utilities_placed_R_reception_1"
+      ],
+      "depends_on": [
+        "T_build_walls_r_reception_1"
+      ]
+    },
+    {
+      "task_id": "T_build_walls_r_toilet_1",
+      "task_type": "build_walls",
+      "target_id": "R_toilet_1",
+      "duration_days": 3.0,
+      "cost_units": 200.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "walls_built_R_toilet_1"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_place_utilities_r_toilet_1",
+      "task_type": "place_utilities",
+      "target_id": "R_toilet_1",
+      "duration_days": 2.0,
+      "cost_units": 120.0,
+      "preconditions": [
+        "walls_built_R_toilet_1"
+      ],
+      "effects": [
+        "utilities_placed_R_toilet_1"
+      ],
+      "depends_on": [
+        "T_build_walls_r_toilet_1"
+      ]
+    },
+    {
+      "task_id": "T_build_corridor_c_1",
+      "task_type": "build_corridor",
+      "target_id": "C_1",
+      "duration_days": 2.0,
+      "cost_units": 150.0,
+      "preconditions": [
+        "space_prepared_f0"
+      ],
+      "effects": [
+        "corridor_built_C_1"
+      ],
+      "depends_on": [
+        "T_prepare_f0"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_1",
+      "task_type": "install_door",
+      "target_id": "D_1",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_meeting_room_1"
+      ],
+      "effects": [
+        "door_installed_D_1"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_meeting_room_1"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_2",
+      "task_type": "install_door",
+      "target_id": "D_2",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_office_1"
+      ],
+      "effects": [
+        "door_installed_D_2"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_office_1"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_3",
+      "task_type": "install_door",
+      "target_id": "D_3",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_office_3"
+      ],
+      "effects": [
+        "door_installed_D_3"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_office_3"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_4",
+      "task_type": "install_door",
+      "target_id": "D_4",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_open_office_1"
+      ],
+      "effects": [
+        "door_installed_D_4"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_open_office_1"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_5",
+      "task_type": "install_door",
+      "target_id": "D_5",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_toilet_1"
+      ],
+      "effects": [
+        "door_installed_D_5"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_toilet_1"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_6",
+      "task_type": "install_door",
+      "target_id": "D_6",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_meeting_room_2"
+      ],
+      "effects": [
+        "door_installed_D_6"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_meeting_room_2"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_7",
+      "task_type": "install_door",
+      "target_id": "D_7",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_office_2"
+      ],
+      "effects": [
+        "door_installed_D_7"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_office_2"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_8",
+      "task_type": "install_door",
+      "target_id": "D_8",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_office_4"
+      ],
+      "effects": [
+        "door_installed_D_8"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_office_4"
+      ]
+    },
+    {
+      "task_id": "T_install_door_d_9",
+      "task_type": "install_door",
+      "target_id": "D_9",
+      "duration_days": 1.0,
+      "cost_units": 50.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1",
+        "ready_for_T_build_walls_r_reception_1"
+      ],
+      "effects": [
+        "door_installed_D_9"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1",
+        "T_build_walls_r_reception_1"
+      ]
+    },
+    {
+      "task_id": "T_build_exit_e_1",
+      "task_type": "build_exit",
+      "target_id": "E_1",
+      "duration_days": 2.0,
+      "cost_units": 150.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1"
+      ],
+      "effects": [
+        "exit_built_E_1"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1"
+      ]
+    },
+    {
+      "task_id": "T_install_safety_equipment_e_1",
+      "task_type": "install_safety_equipment",
+      "target_id": "E_1",
+      "duration_days": 1.0,
+      "cost_units": 80.0,
+      "preconditions": [
+        "exit_built_E_1"
+      ],
+      "effects": [
+        "safety_equipment_installed_E_1"
+      ],
+      "depends_on": [
+        "T_build_exit_e_1"
+      ]
+    },
+    {
+      "task_id": "T_build_exit_e_2",
+      "task_type": "build_exit",
+      "target_id": "E_2",
+      "duration_days": 2.0,
+      "cost_units": 150.0,
+      "preconditions": [
+        "ready_for_T_build_corridor_c_1"
+      ],
+      "effects": [
+        "exit_built_E_2"
+      ],
+      "depends_on": [
+        "T_build_corridor_c_1"
+      ]
+    },
+    {
+      "task_id": "T_install_safety_equipment_e_2",
+      "task_type": "install_safety_equipment",
+      "target_id": "E_2",
+      "duration_days": 1.0,
+      "cost_units": 80.0,
+      "preconditions": [
+        "exit_built_E_2"
+      ],
+      "effects": [
+        "safety_equipment_installed_E_2"
+      ],
+      "depends_on": [
+        "T_build_exit_e_2"
+      ]
+    }
+  ],
+  "schedule": [
+    {
+      "task_id": "T_structure",
+      "start_day": 0.0,
+      "end_day": 5.0
+    },
+    {
+      "task_id": "T_prepare_f0",
+      "start_day": 5.0,
+      "end_day": 7.0
+    },
+    {
+      "task_id": "T_build_corridor_c_1",
+      "start_day": 7.0,
+      "end_day": 9.0
+    },
+    {
+      "task_id": "T_build_exit_e_1",
+      "start_day": 9.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_build_exit_e_2",
+      "start_day": 9.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_build_walls_r_meeting_room_1",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_meeting_room_2",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_office_1",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_office_2",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_office_3",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_office_4",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_open_office_1",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_reception_1",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_build_walls_r_toilet_1",
+      "start_day": 7.0,
+      "end_day": 10.0
+    },
+    {
+      "task_id": "T_install_door_d_1",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_2",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_3",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_4",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_5",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_6",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_7",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_8",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_door_d_9",
+      "start_day": 10.0,
+      "end_day": 11.0
+    },
+    {
+      "task_id": "T_install_safety_equipment_e_1",
+      "start_day": 11.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_install_safety_equipment_e_2",
+      "start_day": 11.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_meeting_room_1",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_meeting_room_2",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_office_1",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_office_2",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_office_3",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_office_4",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_open_office_1",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_reception_1",
+      "start_day": 10.0,
+      "end_day": 12.0
+    },
+    {
+      "task_id": "T_place_utilities_r_toilet_1",
+      "start_day": 10.0,
+      "end_day": 12.0
+    }
+  ],
+  "critical_path": [
+    "T_structure",
+    "T_prepare_f0",
+    "T_build_corridor_c_1",
+    "T_build_exit_e_1",
+    "T_build_exit_e_2",
+    "T_build_walls_r_meeting_room_1",
+    "T_build_walls_r_meeting_room_2",
+    "T_build_walls_r_office_1",
+    "T_build_walls_r_office_2",
+    "T_build_walls_r_office_3",
+    "T_build_walls_r_office_4",
+    "T_build_walls_r_open_office_1",
+    "T_build_walls_r_reception_1",
+    "T_build_walls_r_toilet_1",
+    "T_install_safety_equipment_e_1",
+    "T_install_safety_equipment_e_2",
+    "T_place_utilities_r_meeting_room_1",
+    "T_place_utilities_r_meeting_room_2",
+    "T_place_utilities_r_office_1",
+    "T_place_utilities_r_office_2",
+    "T_place_utilities_r_office_3",
+    "T_place_utilities_r_office_4",
+    "T_place_utilities_r_open_office_1",
+    "T_place_utilities_r_reception_1",
+    "T_place_utilities_r_toilet_1"
+  ],
+  "total_duration_days": 12.0,
+  "total_cost_units": 4540.0
+}

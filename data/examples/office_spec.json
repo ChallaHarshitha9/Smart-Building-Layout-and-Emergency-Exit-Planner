@@ -1,0 +1,111 @@
+{
+  "accessibility": {
+    "lift_required": false,
+    "min_door_width_m": null,
+    "step_free_all_floors": true
+  },
+  "building_type": "office",
+  "content_hash": "e9b1d5e0018f97f98c65f07c6a0242fe2d2eccc480892bf3980966ee392161d9",
+  "entrance_side": "south",
+  "floors": 1,
+  "footprint": {
+    "depth_m": 14.0,
+    "width_m": 24.0
+  },
+  "future_changes": [
+    {
+      "count": 1,
+      "room_ref": "meeting_room",
+      "to_type": "lab"
+    }
+  ],
+  "occupancy": {
+    "profile_ref": "profile_office",
+    "total": 40
+  },
+  "preferences": {
+    "adaptability_weight": 1.0,
+    "adjacency_weight": 1.0,
+    "daylight_weight": 1.0,
+    "energy_weight": 1.0,
+    "usable_area_weight": 1.0,
+    "ventilation_weight": 1.0
+  },
+  "relations": [
+    {
+      "a": "reception",
+      "b": "open_office",
+      "hard": false,
+      "max_distance_m": null,
+      "min_distance_m": null,
+      "type": "near",
+      "weight": 1.0
+    }
+  ],
+  "rooms": [
+    {
+      "count": 1,
+      "flexible_to": [],
+      "functional": true,
+      "max_area_m2": 30.0,
+      "min_area_m2": 10.0,
+      "needs_window": true,
+      "occupant_load": 4,
+      "room_type": "reception",
+      "wet": false
+    },
+    {
+      "count": 1,
+      "flexible_to": [],
+      "functional": true,
+      "max_area_m2": 120.0,
+      "min_area_m2": 60.0,
+      "needs_window": true,
+      "occupant_load": 20,
+      "room_type": "open_office",
+      "wet": false
+    },
+    {
+      "count": 4,
+      "flexible_to": [],
+      "functional": true,
+      "max_area_m2": 20.0,
+      "min_area_m2": 10.0,
+      "needs_window": true,
+      "occupant_load": 3,
+      "room_type": "office",
+      "wet": false
+    },
+    {
+      "count": 2,
+      "flexible_to": [
+        "lab"
+      ],
+      "functional": true,
+      "max_area_m2": 30.0,
+      "min_area_m2": 15.0,
+      "needs_window": true,
+      "occupant_load": 10,
+      "room_type": "meeting_room",
+      "wet": false
+    },
+    {
+      "count": 1,
+      "flexible_to": [],
+      "functional": false,
+      "max_area_m2": 16.0,
+      "min_area_m2": 8.0,
+      "needs_window": false,
+      "occupant_load": 0,
+      "room_type": "toilet",
+      "wet": true
+    }
+  ],
+  "schema_version": "1.1.0",
+  "source_text": null,
+  "spec_id": "small_office",
+  "window_sides": [
+    "north",
+    "south"
+  ]
+}

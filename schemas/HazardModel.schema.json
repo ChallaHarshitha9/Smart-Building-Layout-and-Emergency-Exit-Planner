@@ -1,0 +1,208 @@
+{
+  "$defs": {
+    "Basis": {
+      "description": "Where a number comes from. ``assumption`` is allowed but is always reported.",
+      "enum": [
+        "code",
+        "reference",
+        "assumption"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "HazardParams": {
+      "additionalProperties": false,
+      "description": "Hazard dynamics.\n\nEvery probability-like value below is expressed *per ``rate_interval_s``* (default 10 s), never per\ntick, so the physics does not change when ``SimConfig.tick_s`` changes. ``spread_prob_*`` is the\nchance that fire crosses an edge of that type within one interval; ``smoke_generation`` is the\nfraction of the gap to full smoke closed at a fire node per interval; ``smoke_diffusion`` is the\nfraction of a smoke-intensity difference exchanged along an open edge per interval and\n``smoke_decay`` the fraction of smoke lost per interval at a node that is not burning.",
+      "properties": {
+        "rate_interval_s": {
+          "default": 10.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Rate Interval S",
+          "type": "number"
+        },
+        "smoke_decay": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Smoke Decay",
+          "type": "number"
+        },
+        "smoke_diffusion": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Smoke Diffusion",
+          "type": "number"
+        },
+        "smoke_generation": {
+          "minimum": 0.0,
+          "title": "Smoke Generation",
+          "type": "number"
+        },
+        "spread_kernel": {
+          "$ref": "#/$defs/SpreadKernel",
+          "default": "neighbour"
+        },
+        "spread_prob_closed_door": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Spread Prob Closed Door",
+          "type": "number"
+        },
+        "spread_prob_open_door": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Spread Prob Open Door",
+          "type": "number"
+        },
+        "spread_prob_open_space": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Spread Prob Open Space",
+          "type": "number"
+        }
+      },
+      "required": [
+        "spread_prob_open_door",
+        "spread_prob_closed_door",
+        "spread_prob_open_space",
+        "smoke_generation",
+        "smoke_diffusion",
+        "smoke_decay"
+      ],
+      "title": "HazardParams",
+      "type": "object"
+    },
+    "HazardVariant": {
+      "enum": [
+        "A",
+        "B"
+      ],
+      "title": "HazardVariant",
+      "type": "string"
+    },
+    "Sourcing": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/Basis"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "Sourcing",
+      "type": "object"
+    },
+    "SpreadKernel": {
+      "enum": [
+        "neighbour",
+        "two_hop"
+      ],
+      "title": "SpreadKernel",
+      "type": "string"
+    },
+    "StateMapping": {
+      "additionalProperties": false,
+      "description": "Maps continuous smoke intensity in [0, 1] to the discrete hazard state.",
+      "properties": {
+        "fire_min": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fire Min",
+          "type": "number"
+        },
+        "smoky_min": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Smoky Min",
+          "type": "number"
+        }
+      },
+      "required": [
+        "smoky_min",
+        "fire_min"
+      ],
+      "title": "StateMapping",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "hazard_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Hazard Id",
+      "type": "string"
+    },
+    "params": {
+      "$ref": "#/$defs/HazardParams"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sourcing": {
+      "$ref": "#/$defs/Sourcing"
+    },
+    "state_mapping": {
+      "$ref": "#/$defs/StateMapping"
+    },
+    "variant": {
+      "$ref": "#/$defs/HazardVariant"
+    }
+  },
+  "required": [
+    "hazard_id",
+    "variant",
+    "params",
+    "state_mapping",
+    "sourcing"
+  ],
+  "title": "HazardModel",
+  "type": "object"
+}

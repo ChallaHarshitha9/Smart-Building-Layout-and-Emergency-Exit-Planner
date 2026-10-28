@@ -1,0 +1,448 @@
+{
+  "$defs": {
+    "AddDoor": {
+      "additionalProperties": false,
+      "properties": {
+        "a": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|C_[0-9]+|E_[0-9]+|S_[0-9]+|L_[0-9]+)$",
+          "title": "A",
+          "type": "string"
+        },
+        "b": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|C_[0-9]+|E_[0-9]+|S_[0-9]+|L_[0-9]+)$",
+          "title": "B",
+          "type": "string"
+        },
+        "floor": {
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "type": {
+          "const": "add_door",
+          "default": "add_door",
+          "title": "Type",
+          "type": "string"
+        },
+        "width_cells": {
+          "minimum": 1,
+          "title": "Width Cells",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "floor",
+        "a",
+        "b",
+        "x",
+        "y",
+        "width_cells"
+      ],
+      "title": "AddDoor",
+      "type": "object"
+    },
+    "AddExit": {
+      "additionalProperties": false,
+      "properties": {
+        "connects_to": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|C_[0-9]+|E_[0-9]+|S_[0-9]+|L_[0-9]+)$",
+          "title": "Connects To",
+          "type": "string"
+        },
+        "floor": {
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "type": {
+          "const": "add_exit",
+          "default": "add_exit",
+          "title": "Type",
+          "type": "string"
+        },
+        "width_cells": {
+          "minimum": 1,
+          "title": "Width Cells",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "floor",
+        "x",
+        "y",
+        "width_cells",
+        "connects_to"
+      ],
+      "title": "AddExit",
+      "type": "object"
+    },
+    "CostEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "cost_units": {
+          "minimum": 0.0,
+          "title": "Cost Units",
+          "type": "number"
+        },
+        "duration_days": {
+          "minimum": 0.0,
+          "title": "Duration Days",
+          "type": "number"
+        }
+      },
+      "required": [
+        "cost_units",
+        "duration_days"
+      ],
+      "title": "CostEstimate",
+      "type": "object"
+    },
+    "MoveExit": {
+      "additionalProperties": false,
+      "properties": {
+        "exit_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^E_[0-9]+$",
+          "title": "Exit Id",
+          "type": "string"
+        },
+        "type": {
+          "const": "move_exit",
+          "default": "move_exit",
+          "title": "Type",
+          "type": "string"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "exit_id",
+        "x",
+        "y"
+      ],
+      "title": "MoveExit",
+      "type": "object"
+    },
+    "MoveRoom": {
+      "additionalProperties": false,
+      "properties": {
+        "floor": {
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "room_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^R_[a-z][a-z0-9_]*_[0-9]+$",
+          "title": "Room Id",
+          "type": "string"
+        },
+        "type": {
+          "const": "move_room",
+          "default": "move_room",
+          "title": "Type",
+          "type": "string"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "room_id",
+        "floor",
+        "x",
+        "y"
+      ],
+      "title": "MoveRoom",
+      "type": "object"
+    },
+    "Proposer": {
+      "enum": [
+        "rule",
+        "llm",
+        "search",
+        "rl"
+      ],
+      "title": "Proposer",
+      "type": "string"
+    },
+    "ReassignFlexUse": {
+      "additionalProperties": false,
+      "properties": {
+        "room_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^R_[a-z][a-z0-9_]*_[0-9]+$",
+          "title": "Room Id",
+          "type": "string"
+        },
+        "to_type": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "To Type",
+          "type": "string"
+        },
+        "type": {
+          "const": "reassign_flex_use",
+          "default": "reassign_flex_use",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "room_id",
+        "to_type"
+      ],
+      "title": "ReassignFlexUse",
+      "type": "object"
+    },
+    "ResizeRoom": {
+      "additionalProperties": false,
+      "properties": {
+        "d": {
+          "minimum": 1,
+          "title": "D",
+          "type": "integer"
+        },
+        "room_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^R_[a-z][a-z0-9_]*_[0-9]+$",
+          "title": "Room Id",
+          "type": "string"
+        },
+        "type": {
+          "const": "resize_room",
+          "default": "resize_room",
+          "title": "Type",
+          "type": "string"
+        },
+        "w": {
+          "minimum": 1,
+          "title": "W",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "room_id",
+        "w",
+        "d"
+      ],
+      "title": "ResizeRoom",
+      "type": "object"
+    },
+    "SwapRooms": {
+      "additionalProperties": false,
+      "properties": {
+        "room_a": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^R_[a-z][a-z0-9_]*_[0-9]+$",
+          "title": "Room A",
+          "type": "string"
+        },
+        "room_b": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^R_[a-z][a-z0-9_]*_[0-9]+$",
+          "title": "Room B",
+          "type": "string"
+        },
+        "type": {
+          "const": "swap_rooms",
+          "default": "swap_rooms",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "room_a",
+        "room_b"
+      ],
+      "title": "SwapRooms",
+      "type": "object"
+    },
+    "WidenCorridor": {
+      "additionalProperties": false,
+      "properties": {
+        "corridor_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^C_[0-9]+$",
+          "title": "Corridor Id",
+          "type": "string"
+        },
+        "new_width_cells": {
+          "minimum": 1,
+          "title": "New Width Cells",
+          "type": "integer"
+        },
+        "type": {
+          "const": "widen_corridor",
+          "default": "widen_corridor",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "corridor_id",
+        "new_width_cells"
+      ],
+      "title": "WidenCorridor",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "discriminator": {
+        "mapping": {
+          "add_door": "#/$defs/AddDoor",
+          "add_exit": "#/$defs/AddExit",
+          "move_exit": "#/$defs/MoveExit",
+          "move_room": "#/$defs/MoveRoom",
+          "reassign_flex_use": "#/$defs/ReassignFlexUse",
+          "resize_room": "#/$defs/ResizeRoom",
+          "swap_rooms": "#/$defs/SwapRooms",
+          "widen_corridor": "#/$defs/WidenCorridor"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/WidenCorridor"
+        },
+        {
+          "$ref": "#/$defs/AddExit"
+        },
+        {
+          "$ref": "#/$defs/MoveExit"
+        },
+        {
+          "$ref": "#/$defs/AddDoor"
+        },
+        {
+          "$ref": "#/$defs/SwapRooms"
+        },
+        {
+          "$ref": "#/$defs/MoveRoom"
+        },
+        {
+          "$ref": "#/$defs/ResizeRoom"
+        },
+        {
+          "$ref": "#/$defs/ReassignFlexUse"
+        }
+      ],
+      "title": "Action"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "cost_estimate": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CostEstimate"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "finding_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 96,
+        "minLength": 1,
+        "pattern": "^F_[0-9]+$",
+        "type": "string"
+      },
+      "title": "Finding Ids",
+      "type": "array"
+    },
+    "move_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^MV_[0-9]+$",
+      "title": "Move Id",
+      "type": "string"
+    },
+    "proposer": {
+      "$ref": "#/$defs/Proposer"
+    },
+    "rationale": {
+      "default": "",
+      "title": "Rationale",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "move_id",
+    "proposer",
+    "action"
+  ],
+  "title": "RepairMove",
+  "type": "object"
+}

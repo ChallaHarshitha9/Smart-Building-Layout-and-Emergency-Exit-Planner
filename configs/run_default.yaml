@@ -1,0 +1,28 @@
+# Default run configuration. All paths are relative to this file's folder.
+schema_version: "1.0.0"
+run_id: default
+base_seed: 42
+paths:
+  catalogue: room_catalogue.yaml
+  thresholds: thresholds.yaml
+  profiles: occupant_profiles.yaml
+  hazard_a: hazard_A.yaml
+  hazard_b: hazard_B.yaml
+  sensors: sensors.yaml
+  scenario_families: scenario_families.yaml
+llm:
+  backend: cached
+  llm_name: none
+  temperature: 0.0
+  cache_dir: data/llm_cache
+  prompt_version: v1
+# Dose PROXY (not FED). Level thresholds are on the proxy scale; penalty structure
+# (alert < critical < severe) follows the idea in Fang et al. 2026, values are placeholders.
+dose:
+  k: 1.0
+  alert_min: 0.5
+  critical_min: 3.0
+  severe_min: 8.0
+  penalty_alert: 100.0
+  penalty_critical: 300.0
+  penalty_severe: 800.0

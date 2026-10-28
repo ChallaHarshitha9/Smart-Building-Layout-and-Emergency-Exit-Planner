@@ -1,0 +1,228 @@
+{
+  "$defs": {
+    "Basis": {
+      "description": "Where a number comes from. ``assumption`` is allowed but is always reported.",
+      "enum": [
+        "code",
+        "reference",
+        "assumption"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "DefaultRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "a": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "A",
+          "type": "string"
+        },
+        "b": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "B",
+          "type": "string"
+        },
+        "hard": {
+          "default": false,
+          "title": "Hard",
+          "type": "boolean"
+        },
+        "sourcing": {
+          "$ref": "#/$defs/Sourcing"
+        },
+        "type": {
+          "$ref": "#/$defs/RelationType"
+        },
+        "weight": {
+          "default": 1.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "type",
+        "sourcing"
+      ],
+      "title": "DefaultRelation",
+      "type": "object"
+    },
+    "RelationType": {
+      "enum": [
+        "adjacent",
+        "near",
+        "far",
+        "incompatible"
+      ],
+      "title": "RelationType",
+      "type": "string"
+    },
+    "RoomTypeDef": {
+      "additionalProperties": false,
+      "properties": {
+        "flexible_to": {
+          "default": [],
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-z][a-z0-9_]*$",
+            "type": "string"
+          },
+          "title": "Flexible To",
+          "type": "array"
+        },
+        "functional": {
+          "default": true,
+          "title": "Functional",
+          "type": "boolean"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "max_area_m2": {
+          "exclusiveMinimum": 0.0,
+          "title": "Max Area M2",
+          "type": "number"
+        },
+        "min_area_m2": {
+          "exclusiveMinimum": 0.0,
+          "title": "Min Area M2",
+          "type": "number"
+        },
+        "needs_window": {
+          "default": false,
+          "title": "Needs Window",
+          "type": "boolean"
+        },
+        "occupant_load": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Occupant Load",
+          "type": "integer"
+        },
+        "sourcing": {
+          "$ref": "#/$defs/Sourcing"
+        },
+        "type_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "Type Id",
+          "type": "string"
+        },
+        "wet": {
+          "default": false,
+          "title": "Wet",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type_id",
+        "label",
+        "min_area_m2",
+        "max_area_m2",
+        "sourcing"
+      ],
+      "title": "RoomTypeDef",
+      "type": "object"
+    },
+    "Sourcing": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/Basis"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "Sourcing",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "catalogue_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Catalogue Id",
+      "type": "string"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "default_relations": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/DefaultRelation"
+      },
+      "title": "Default Relations",
+      "type": "array"
+    },
+    "room_types": {
+      "items": {
+        "$ref": "#/$defs/RoomTypeDef"
+      },
+      "minItems": 1,
+      "title": "Room Types",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "catalogue_id",
+    "room_types"
+  ],
+  "title": "RoomCatalogue",
+  "type": "object"
+}

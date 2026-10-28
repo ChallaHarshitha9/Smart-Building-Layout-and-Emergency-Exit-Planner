@@ -1,0 +1,29 @@
+# Room types. Areas and loads are design assumptions (basis: assumption).
+schema_version: "1.0.0"
+catalogue_id: default
+room_types:
+  - {type_id: classroom, label: Classroom, min_area_m2: 40, max_area_m2: 60, needs_window: true, occupant_load: 30, flexible_to: [lab, meeting_room], sourcing: &asm {basis: assumption, note: "design assumption"}}
+  - {type_id: lab, label: Laboratory, min_area_m2: 30, max_area_m2: 80, needs_window: true, occupant_load: 20, sourcing: *asm}
+  - {type_id: staff_room, label: Staff room, min_area_m2: 20, max_area_m2: 40, needs_window: true, occupant_load: 8, sourcing: *asm}
+  - {type_id: toilet, label: Toilet block, min_area_m2: 8, max_area_m2: 20, wet: true, functional: false, sourcing: *asm}
+  - {type_id: lobby, label: Lobby, min_area_m2: 20, max_area_m2: 80, functional: false, occupant_load: 10, sourcing: *asm}
+  - {type_id: reception, label: Reception, min_area_m2: 10, max_area_m2: 30, needs_window: true, occupant_load: 4, sourcing: *asm}
+  - {type_id: office, label: Office, min_area_m2: 10, max_area_m2: 30, needs_window: true, occupant_load: 4, flexible_to: [meeting_room], sourcing: *asm}
+  - {type_id: open_office, label: Open office, min_area_m2: 60, max_area_m2: 200, needs_window: true, occupant_load: 30, sourcing: *asm}
+  - {type_id: meeting_room, label: Meeting room, min_area_m2: 15, max_area_m2: 40, needs_window: true, occupant_load: 12, flexible_to: [lab, office], sourcing: *asm}
+  - {type_id: canteen, label: Canteen, min_area_m2: 40, max_area_m2: 120, needs_window: true, occupant_load: 60, sourcing: *asm}
+  - {type_id: storage, label: Storage, min_area_m2: 4, max_area_m2: 20, functional: false, sourcing: *asm}
+  - {type_id: plant_room, label: Plant room, min_area_m2: 10, max_area_m2: 30, functional: false, sourcing: *asm}
+  - {type_id: bedroom, label: Bedroom, min_area_m2: 10, max_area_m2: 20, needs_window: true, occupant_load: 2, sourcing: *asm}
+  - {type_id: common_room, label: Common room, min_area_m2: 20, max_area_m2: 60, needs_window: true, occupant_load: 20, sourcing: *asm}
+  - {type_id: shared_bath, label: Shared bathroom, min_area_m2: 8, max_area_m2: 24, wet: true, functional: false, sourcing: *asm}
+  - {type_id: ward, label: Ward, min_area_m2: 20, max_area_m2: 60, needs_window: true, occupant_load: 6, sourcing: *asm}
+  - {type_id: nurse_station, label: Nurse station, min_area_m2: 10, max_area_m2: 25, occupant_load: 3, sourcing: *asm}
+  - {type_id: treatment_room, label: Treatment room, min_area_m2: 15, max_area_m2: 30, occupant_load: 4, sourcing: *asm}
+default_relations:
+  - {a: lab, b: classroom, type: near, weight: 2.0, sourcing: *asm}
+  - {a: lab, b: canteen, type: incompatible, hard: true, sourcing: *asm}
+  - {a: toilet, b: canteen, type: far, sourcing: *asm}
+  - {a: plant_room, b: ward, type: incompatible, hard: true, sourcing: *asm}
+  - {a: plant_room, b: bedroom, type: incompatible, hard: true, sourcing: *asm}
+  - {a: nurse_station, b: ward, type: near, weight: 2.0, sourcing: *asm}

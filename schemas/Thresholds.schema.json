@@ -1,0 +1,172 @@
+{
+  "$defs": {
+    "Basis": {
+      "description": "Where a number comes from. ``assumption`` is allowed but is always reported.",
+      "enum": [
+        "code",
+        "reference",
+        "assumption"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "CountThreshold": {
+      "additionalProperties": false,
+      "properties": {
+        "sourcing": {
+          "$ref": "#/$defs/Sourcing"
+        },
+        "unit": {
+          "default": "count",
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 1,
+          "title": "Value",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "value",
+        "sourcing"
+      ],
+      "title": "CountThreshold",
+      "type": "object"
+    },
+    "Sourcing": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/Basis"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "Sourcing",
+      "type": "object"
+    },
+    "Threshold": {
+      "additionalProperties": false,
+      "properties": {
+        "sourcing": {
+          "$ref": "#/$defs/Sourcing"
+        },
+        "unit": {
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "exclusiveMinimum": 0.0,
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "sourcing"
+      ],
+      "title": "Threshold",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Numeric limits used by the rule checker. Never hard-coded elsewhere.",
+  "properties": {
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "far_reference_distance_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "incompatible_min_separation_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "max_travel_distance_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "min_corridor_width_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "min_door_width_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "min_exit_count": {
+      "$ref": "#/$defs/CountThreshold"
+    },
+    "min_exit_width_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "near_reference_distance_m": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "specific_flow_pers_per_m_s": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "thresholds_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Thresholds Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "thresholds_id",
+    "min_corridor_width_m",
+    "min_door_width_m",
+    "min_exit_width_m",
+    "max_travel_distance_m",
+    "incompatible_min_separation_m",
+    "specific_flow_pers_per_m_s",
+    "near_reference_distance_m",
+    "far_reference_distance_m",
+    "min_exit_count"
+  ],
+  "title": "Thresholds",
+  "type": "object"
+}

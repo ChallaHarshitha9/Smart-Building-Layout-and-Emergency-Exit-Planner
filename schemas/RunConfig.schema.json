@@ -1,0 +1,528 @@
+{
+  "$defs": {
+    "Algorithm": {
+      "enum": [
+        "dqn",
+        "ppo"
+      ],
+      "title": "Algorithm",
+      "type": "string"
+    },
+    "Baseline": {
+      "enum": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "title": "Baseline",
+      "type": "string"
+    },
+    "BeliefParams": {
+      "additionalProperties": false,
+      "description": "Assumptions of the Bayes filter itself (what the *decision maker* believes about the world).\n\nKept separate from the simulator's ``HazardModel`` on purpose: the filter derives its spread rates\nfrom a hazard model it is *given* (variant A when tuned) and adds the small background rates below.\nRates are per second.",
+      "properties": {
+        "device_fail_prob_per_s": {
+          "default": 0.0005,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Device Fail Prob Per S",
+          "type": "number"
+        },
+        "escalation_per_s": {
+          "default": 0.005,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Escalation Per S",
+          "type": "number"
+        },
+        "exit_fail_prob_per_s": {
+          "default": 0.0005,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Exit Fail Prob Per S",
+          "type": "number"
+        },
+        "ignition_prob_per_s": {
+          "default": 0.0001,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Ignition Prob Per S",
+          "type": "number"
+        },
+        "min_prob": {
+          "default": 1e-06,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Min Prob",
+          "type": "number"
+        },
+        "occupancy_prior_fraction": {
+          "default": 0.7,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Occupancy Prior Fraction",
+          "type": "number"
+        },
+        "occupancy_process_var_per_s": {
+          "default": 0.05,
+          "minimum": 0.0,
+          "title": "Occupancy Process Var Per S",
+          "type": "number"
+        },
+        "prior_available": {
+          "default": 0.99,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Prior Available",
+          "type": "number"
+        },
+        "smoke_recovery_per_s": {
+          "default": 0.01,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Smoke Recovery Per S",
+          "type": "number"
+        },
+        "spontaneous_smoke_prob_per_s": {
+          "default": 0.0001,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Spontaneous Smoke Prob Per S",
+          "type": "number"
+        }
+      },
+      "title": "BeliefParams",
+      "type": "object"
+    },
+    "Budgets": {
+      "additionalProperties": false,
+      "properties": {
+        "max_layouts": {
+          "default": 5,
+          "minimum": 1,
+          "title": "Max Layouts",
+          "type": "integer"
+        },
+        "n_repair_scenarios": {
+          "default": 10,
+          "minimum": 1,
+          "title": "N Repair Scenarios",
+          "type": "integer"
+        },
+        "n_test_scenarios": {
+          "default": 30,
+          "minimum": 1,
+          "title": "N Test Scenarios",
+          "type": "integer"
+        },
+        "repair_rounds": {
+          "default": 3,
+          "minimum": 0,
+          "title": "Repair Rounds",
+          "type": "integer"
+        },
+        "solver_time_limit_s": {
+          "default": 60.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Solver Time Limit S",
+          "type": "number"
+        }
+      },
+      "title": "Budgets",
+      "type": "object"
+    },
+    "ConfigPaths": {
+      "additionalProperties": false,
+      "description": "All paths are relative to the directory of the run-config file.",
+      "properties": {
+        "catalogue": {
+          "minLength": 1,
+          "title": "Catalogue",
+          "type": "string"
+        },
+        "hazard_a": {
+          "minLength": 1,
+          "title": "Hazard A",
+          "type": "string"
+        },
+        "hazard_b": {
+          "minLength": 1,
+          "title": "Hazard B",
+          "type": "string"
+        },
+        "profiles": {
+          "minLength": 1,
+          "title": "Profiles",
+          "type": "string"
+        },
+        "scenario_families": {
+          "minLength": 1,
+          "title": "Scenario Families",
+          "type": "string"
+        },
+        "sensors": {
+          "minLength": 1,
+          "title": "Sensors",
+          "type": "string"
+        },
+        "thresholds": {
+          "minLength": 1,
+          "title": "Thresholds",
+          "type": "string"
+        }
+      },
+      "required": [
+        "catalogue",
+        "thresholds",
+        "profiles",
+        "hazard_a",
+        "hazard_b",
+        "sensors",
+        "scenario_families"
+      ],
+      "title": "ConfigPaths",
+      "type": "object"
+    },
+    "DoseConfig": {
+      "additionalProperties": false,
+      "description": "Dose proxy. NOT the physical FED; thresholds are on the proxy scale.",
+      "properties": {
+        "alert_min": {
+          "exclusiveMinimum": 0.0,
+          "title": "Alert Min",
+          "type": "number"
+        },
+        "critical_min": {
+          "exclusiveMinimum": 0.0,
+          "title": "Critical Min",
+          "type": "number"
+        },
+        "k": {
+          "default": 1.0,
+          "exclusiveMinimum": 0.0,
+          "title": "K",
+          "type": "number"
+        },
+        "penalty_alert": {
+          "minimum": 0.0,
+          "title": "Penalty Alert",
+          "type": "number"
+        },
+        "penalty_critical": {
+          "minimum": 0.0,
+          "title": "Penalty Critical",
+          "type": "number"
+        },
+        "penalty_severe": {
+          "minimum": 0.0,
+          "title": "Penalty Severe",
+          "type": "number"
+        },
+        "severe_min": {
+          "exclusiveMinimum": 0.0,
+          "title": "Severe Min",
+          "type": "number"
+        }
+      },
+      "required": [
+        "alert_min",
+        "critical_min",
+        "severe_min",
+        "penalty_alert",
+        "penalty_critical",
+        "penalty_severe"
+      ],
+      "title": "DoseConfig",
+      "type": "object"
+    },
+    "LLMBackend": {
+      "enum": [
+        "cached",
+        "api",
+        "local"
+      ],
+      "title": "LLMBackend",
+      "type": "string"
+    },
+    "LLMConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "backend": {
+          "$ref": "#/$defs/LLMBackend",
+          "default": "cached"
+        },
+        "cache_dir": {
+          "default": "data/llm_cache",
+          "minLength": 1,
+          "title": "Cache Dir",
+          "type": "string"
+        },
+        "llm_name": {
+          "default": "none",
+          "title": "Llm Name",
+          "type": "string"
+        },
+        "max_retries": {
+          "default": 3,
+          "maximum": 10,
+          "minimum": 0,
+          "title": "Max Retries",
+          "type": "integer"
+        },
+        "prompt_version": {
+          "default": "v1",
+          "title": "Prompt Version",
+          "type": "string"
+        },
+        "temperature": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "title": "Temperature",
+          "type": "number"
+        }
+      },
+      "title": "LLMConfig",
+      "type": "object"
+    },
+    "ObjectiveConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/ObjectiveMode",
+          "default": "pareto"
+        },
+        "weights": {
+          "$ref": "#/$defs/ObjectiveWeights"
+        }
+      },
+      "title": "ObjectiveConfig",
+      "type": "object"
+    },
+    "ObjectiveMode": {
+      "enum": [
+        "pareto",
+        "weighted"
+      ],
+      "title": "ObjectiveMode",
+      "type": "string"
+    },
+    "ObjectiveWeights": {
+      "additionalProperties": false,
+      "properties": {
+        "congestion": {
+          "default": 0.5,
+          "minimum": 0.0,
+          "title": "Congestion",
+          "type": "number"
+        },
+        "construction_cost": {
+          "default": 0.2,
+          "minimum": 0.0,
+          "title": "Construction Cost",
+          "type": "number"
+        },
+        "dose": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Dose",
+          "type": "number"
+        },
+        "evac_time": {
+          "default": 0.5,
+          "minimum": 0.0,
+          "title": "Evac Time",
+          "type": "number"
+        },
+        "usable_area": {
+          "default": 0.2,
+          "minimum": 0.0,
+          "title": "Usable Area",
+          "type": "number"
+        }
+      },
+      "title": "ObjectiveWeights",
+      "type": "object"
+    },
+    "RLConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "$ref": "#/$defs/Algorithm",
+          "default": "dqn"
+        },
+        "episodes": {
+          "default": 2000,
+          "minimum": 1,
+          "title": "Episodes",
+          "type": "integer"
+        },
+        "reward": {
+          "$ref": "#/$defs/RewardWeights"
+        },
+        "training_seeds": {
+          "default": 5,
+          "minimum": 1,
+          "title": "Training Seeds",
+          "type": "integer"
+        }
+      },
+      "title": "RLConfig",
+      "type": "object"
+    },
+    "RewardWeights": {
+      "additionalProperties": false,
+      "properties": {
+        "completion_bonus": {
+          "default": 10.0,
+          "minimum": 0.0,
+          "title": "Completion Bonus",
+          "type": "number"
+        },
+        "congestion": {
+          "default": 0.1,
+          "minimum": 0.0,
+          "title": "Congestion",
+          "type": "number"
+        },
+        "dose": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Dose",
+          "type": "number"
+        },
+        "evacuated": {
+          "default": 0.5,
+          "minimum": 0.0,
+          "title": "Evacuated",
+          "type": "number"
+        },
+        "time": {
+          "default": 0.01,
+          "minimum": 0.0,
+          "title": "Time",
+          "type": "number"
+        }
+      },
+      "title": "RewardWeights",
+      "type": "object"
+    },
+    "SimConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_period_ticks": {
+          "default": 3,
+          "minimum": 1,
+          "title": "Decision Period Ticks",
+          "type": "integer"
+        },
+        "lifts_disabled_in_fire": {
+          "default": true,
+          "title": "Lifts Disabled In Fire",
+          "type": "boolean"
+        },
+        "max_substep_s": {
+          "default": 0.5,
+          "exclusiveMinimum": 0.0,
+          "title": "Max Substep S",
+          "type": "number"
+        },
+        "tick_s": {
+          "default": 2.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Tick S",
+          "type": "number"
+        }
+      },
+      "title": "SimConfig",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "base_seed": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Base Seed",
+      "type": "integer"
+    },
+    "baselines": {
+      "default": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "items": {
+        "$ref": "#/$defs/Baseline"
+      },
+      "minItems": 1,
+      "title": "Baselines",
+      "type": "array"
+    },
+    "belief": {
+      "$ref": "#/$defs/BeliefParams"
+    },
+    "budgets": {
+      "$ref": "#/$defs/Budgets"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "dose": {
+      "$ref": "#/$defs/DoseConfig"
+    },
+    "llm": {
+      "$ref": "#/$defs/LLMConfig"
+    },
+    "objective": {
+      "$ref": "#/$defs/ObjectiveConfig"
+    },
+    "paths": {
+      "$ref": "#/$defs/ConfigPaths"
+    },
+    "rl": {
+      "$ref": "#/$defs/RLConfig"
+    },
+    "run_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sim": {
+      "$ref": "#/$defs/SimConfig"
+    }
+  },
+  "required": [
+    "run_id",
+    "paths",
+    "dose"
+  ],
+  "title": "RunConfig",
+  "type": "object"
+}

@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "OccupancyBelief": {
+      "additionalProperties": false,
+      "properties": {
+        "mean": {
+          "minimum": 0.0,
+          "title": "Mean",
+          "type": "number"
+        },
+        "var": {
+          "minimum": 0.0,
+          "title": "Var",
+          "type": "number"
+        }
+      },
+      "required": [
+        "mean",
+        "var"
+      ],
+      "title": "OccupancyBelief",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "devices": {
+      "default": {},
+      "patternProperties": {
+        "^DV_(lift|door|detector|equipment|alarm)_[0-9]+$": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 96,
+        "minLength": 1
+      },
+      "title": "Devices",
+      "type": "object"
+    },
+    "exit_avail": {
+      "default": {},
+      "patternProperties": {
+        "^E_[0-9]+$": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 96,
+        "minLength": 1
+      },
+      "title": "Exit Avail",
+      "type": "object"
+    },
+    "graph_hash": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Graph Hash",
+      "type": "string"
+    },
+    "node_belief": {
+      "patternProperties": {
+        "^N_[a-z]+_[0-9]+$": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            }
+          ],
+          "type": "array"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 96,
+        "minLength": 1
+      },
+      "title": "Node Belief",
+      "type": "object"
+    },
+    "occupancy": {
+      "default": {},
+      "patternProperties": {
+        "^R_[a-z][a-z0-9_]*_[0-9]+$": {
+          "$ref": "#/$defs/OccupancyBelief"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 96,
+        "minLength": 1
+      },
+      "title": "Occupancy",
+      "type": "object"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "t_s": {
+      "minimum": 0.0,
+      "title": "T S",
+      "type": "number"
+    }
+  },
+  "required": [
+    "graph_hash",
+    "t_s",
+    "node_belief"
+  ],
+  "title": "BeliefState",
+  "type": "object"
+}

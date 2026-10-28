@@ -1,0 +1,177 @@
+{
+  "$defs": {
+    "Basis": {
+      "description": "Where a number comes from. ``assumption`` is allowed but is always reported.",
+      "enum": [
+        "code",
+        "reference",
+        "assumption"
+      ],
+      "title": "Basis",
+      "type": "string"
+    },
+    "SensorPlacement": {
+      "enum": [
+        "all_rooms",
+        "corridors_only",
+        "rooms_and_corridors"
+      ],
+      "title": "SensorPlacement",
+      "type": "string"
+    },
+    "Sourcing": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "$ref": "#/$defs/Basis"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        }
+      },
+      "required": [
+        "basis"
+      ],
+      "title": "Sourcing",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "device_report_reliability": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Device Report Reliability",
+      "type": "number"
+    },
+    "exit_report_reliability": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Exit Report Reliability",
+      "type": "number"
+    },
+    "lift_report_reliability": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Lift Report Reliability",
+      "type": "number"
+    },
+    "occupancy_noise_sd": {
+      "minimum": 0.0,
+      "title": "Occupancy Noise Sd",
+      "type": "number"
+    },
+    "occupancy_sensor_coverage": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Occupancy Sensor Coverage",
+      "type": "number"
+    },
+    "report_period_s": {
+      "default": 6.0,
+      "exclusiveMinimum": 0.0,
+      "title": "Report Period S",
+      "type": "number"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sensor_model_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Sensor Model Id",
+      "type": "string"
+    },
+    "smoke_detection_prob": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Smoke Detection Prob",
+      "type": "number"
+    },
+    "smoke_false_alarm_prob": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Smoke False Alarm Prob",
+      "type": "number"
+    },
+    "smoke_placement": {
+      "$ref": "#/$defs/SensorPlacement",
+      "default": "rooms_and_corridors"
+    },
+    "smoky_detection_factor": {
+      "default": 0.7,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Smoky Detection Factor",
+      "type": "number"
+    },
+    "sourcing": {
+      "$ref": "#/$defs/Sourcing"
+    },
+    "user_report_rate_per_min": {
+      "minimum": 0.0,
+      "title": "User Report Rate Per Min",
+      "type": "number"
+    },
+    "user_report_reliability": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "User Report Reliability",
+      "type": "number"
+    }
+  },
+  "required": [
+    "sensor_model_id",
+    "smoke_detection_prob",
+    "smoke_false_alarm_prob",
+    "occupancy_noise_sd",
+    "occupancy_sensor_coverage",
+    "exit_report_reliability",
+    "lift_report_reliability",
+    "device_report_reliability",
+    "user_report_reliability",
+    "user_report_rate_per_min",
+    "sourcing"
+  ],
+  "title": "SensorModel",
+  "type": "object"
+}

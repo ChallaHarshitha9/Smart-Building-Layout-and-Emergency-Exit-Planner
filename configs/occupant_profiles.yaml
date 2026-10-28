@@ -1,0 +1,47 @@
+# Occupant profiles per building type. Speeds, shares and periods are placeholders.
+# Every profile has templates 'adult' and 'impaired' and periods 'peak', 'typical', 'night'.
+schema_version: "1.0.0"
+profiles_id: default
+profiles:
+  - profile_id: profile_school
+    building_type: school
+    sourcing: &asm {basis: assumption, note: "PLACEHOLDER - replace with cited values"}
+    groups:
+      - {template_id: adult, label: Staff, share: 0.12, speed_mps: 1.2}
+      - {template_id: child, label: Pupils, share: 0.80, speed_mps: 1.0}
+      - {template_id: impaired, label: Mobility-impaired, share: 0.08, speed_mps: 0.6, can_use_stairs: false, needs_assistance: true, response_delay_s: 20}
+    periods:
+      - {name: peak, mean_fraction: 0.95, dispersion: 0.03}
+      - {name: typical, mean_fraction: 0.80, dispersion: 0.08}
+      - {name: night, mean_fraction: 0.02, dispersion: 0.01}
+  - profile_id: profile_office
+    building_type: office
+    sourcing: *asm
+    groups:
+      - {template_id: adult, label: Staff, share: 0.92, speed_mps: 1.2}
+      - {template_id: impaired, label: Mobility-impaired, share: 0.08, speed_mps: 0.6, can_use_stairs: false, needs_assistance: true, response_delay_s: 15}
+    periods:
+      - {name: peak, mean_fraction: 0.95, dispersion: 0.03}
+      - {name: typical, mean_fraction: 0.70, dispersion: 0.10}
+      - {name: night, mean_fraction: 0.03, dispersion: 0.02}
+  - profile_id: profile_hostel
+    building_type: hostel
+    sourcing: *asm
+    groups:
+      - {template_id: adult, label: Residents, share: 0.92, speed_mps: 1.2, response_delay_s: 30}
+      - {template_id: impaired, label: Mobility-impaired, share: 0.08, speed_mps: 0.6, can_use_stairs: false, needs_assistance: true, response_delay_s: 60}
+    periods:
+      - {name: peak, mean_fraction: 0.95, dispersion: 0.03}
+      - {name: typical, mean_fraction: 0.50, dispersion: 0.15}
+      - {name: night, mean_fraction: 0.95, dispersion: 0.03}
+  - profile_id: profile_hospital
+    building_type: hospital
+    sourcing: *asm
+    groups:
+      - {template_id: adult, label: Staff and visitors, share: 0.30, speed_mps: 1.2}
+      - {template_id: patient_mobile, label: Mobile patients, share: 0.30, speed_mps: 0.8, response_delay_s: 20}
+      - {template_id: impaired, label: Assisted patients, share: 0.40, speed_mps: 0.4, can_use_stairs: false, needs_assistance: true, response_delay_s: 40}
+    periods:
+      - {name: peak, mean_fraction: 0.95, dispersion: 0.03}
+      - {name: typical, mean_fraction: 0.85, dispersion: 0.05}
+      - {name: night, mean_fraction: 0.60, dispersion: 0.10}

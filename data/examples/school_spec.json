@@ -1,0 +1,100 @@
+{
+  "accessibility": {
+    "lift_required": true,
+    "min_door_width_m": null,
+    "step_free_all_floors": true
+  },
+  "building_type": "school",
+  "content_hash": "ae5ca5727ac8345879572c9b42acbaf076ad80c6e0400edd8b2bbd8e05688fe1",
+  "entrance_side": "south",
+  "floors": 2,
+  "footprint": {
+    "depth_m": 18.0,
+    "width_m": 30.0
+  },
+  "future_changes": [
+    {
+      "count": 2,
+      "room_ref": "classroom",
+      "to_type": "lab"
+    }
+  ],
+  "occupancy": {
+    "profile_ref": "profile_school",
+    "total": 200
+  },
+  "preferences": {
+    "adaptability_weight": 1.0,
+    "adjacency_weight": 1.0,
+    "daylight_weight": 1.0,
+    "energy_weight": 1.0,
+    "usable_area_weight": 1.0,
+    "ventilation_weight": 1.0
+  },
+  "relations": [
+    {
+      "a": "lab",
+      "b": "classroom",
+      "hard": false,
+      "max_distance_m": null,
+      "min_distance_m": null,
+      "type": "near",
+      "weight": 2.0
+    }
+  ],
+  "rooms": [
+    {
+      "count": 6,
+      "flexible_to": [
+        "lab"
+      ],
+      "functional": true,
+      "max_area_m2": 60.0,
+      "min_area_m2": 40.0,
+      "needs_window": true,
+      "occupant_load": 30,
+      "room_type": "classroom",
+      "wet": false
+    },
+    {
+      "count": 2,
+      "flexible_to": [],
+      "functional": true,
+      "max_area_m2": 80.0,
+      "min_area_m2": 50.0,
+      "needs_window": true,
+      "occupant_load": 20,
+      "room_type": "lab",
+      "wet": false
+    },
+    {
+      "count": 1,
+      "flexible_to": [],
+      "functional": true,
+      "max_area_m2": 40.0,
+      "min_area_m2": 20.0,
+      "needs_window": true,
+      "occupant_load": 8,
+      "room_type": "staff_room",
+      "wet": false
+    },
+    {
+      "count": 2,
+      "flexible_to": [],
+      "functional": false,
+      "max_area_m2": 20.0,
+      "min_area_m2": 8.0,
+      "needs_window": false,
+      "occupant_load": 0,
+      "room_type": "toilet",
+      "wet": true
+    }
+  ],
+  "schema_version": "1.1.0",
+  "source_text": "School wing, 30 m x 18 m, 6 classrooms, 2 labs, staff room, toilets, lift. Classrooms near labs. Wheelchair accessible. About 200 occupants. Two classrooms may later become labs.",
+  "spec_id": "school_wing",
+  "window_sides": [
+    "north",
+    "south"
+  ]
+}

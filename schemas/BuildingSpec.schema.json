@@ -1,0 +1,429 @@
+{
+  "$defs": {
+    "AccessibilityRules": {
+      "additionalProperties": false,
+      "properties": {
+        "lift_required": {
+          "default": false,
+          "title": "Lift Required",
+          "type": "boolean"
+        },
+        "min_door_width_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Door Width M"
+        },
+        "step_free_all_floors": {
+          "default": true,
+          "title": "Step Free All Floors",
+          "type": "boolean"
+        }
+      },
+      "title": "AccessibilityRules",
+      "type": "object"
+    },
+    "BuildingType": {
+      "enum": [
+        "office",
+        "school",
+        "hostel",
+        "hospital"
+      ],
+      "title": "BuildingType",
+      "type": "string"
+    },
+    "Footprint": {
+      "additionalProperties": false,
+      "properties": {
+        "depth_m": {
+          "exclusiveMinimum": 0.0,
+          "title": "Depth M",
+          "type": "number"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0.0,
+          "title": "Width M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "width_m",
+        "depth_m"
+      ],
+      "title": "Footprint",
+      "type": "object"
+    },
+    "FutureChange": {
+      "additionalProperties": false,
+      "description": "A planned conversion, for example 'two classrooms may later become labs'.",
+      "properties": {
+        "count": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "room_ref": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|[a-z][a-z0-9_]*)$",
+          "title": "Room Ref",
+          "type": "string"
+        },
+        "to_type": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "To Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "room_ref",
+        "to_type"
+      ],
+      "title": "FutureChange",
+      "type": "object"
+    },
+    "OccupancySpec": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_ref": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+          "title": "Profile Ref",
+          "type": "string"
+        },
+        "total": {
+          "minimum": 1,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total",
+        "profile_ref"
+      ],
+      "title": "OccupancySpec",
+      "type": "object"
+    },
+    "Preferences": {
+      "additionalProperties": false,
+      "properties": {
+        "adaptability_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Adaptability Weight",
+          "type": "number"
+        },
+        "adjacency_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Adjacency Weight",
+          "type": "number"
+        },
+        "daylight_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Daylight Weight",
+          "type": "number"
+        },
+        "energy_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Energy Weight",
+          "type": "number"
+        },
+        "usable_area_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Usable Area Weight",
+          "type": "number"
+        },
+        "ventilation_weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Ventilation Weight",
+          "type": "number"
+        }
+      },
+      "title": "Preferences",
+      "type": "object"
+    },
+    "Relation": {
+      "additionalProperties": false,
+      "description": "Spatial relation between two room types or two room instances.",
+      "properties": {
+        "a": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|[a-z][a-z0-9_]*)$",
+          "title": "A",
+          "type": "string"
+        },
+        "b": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|[a-z][a-z0-9_]*)$",
+          "title": "B",
+          "type": "string"
+        },
+        "hard": {
+          "default": false,
+          "title": "Hard",
+          "type": "boolean"
+        },
+        "max_distance_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Distance M"
+        },
+        "min_distance_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Distance M"
+        },
+        "type": {
+          "$ref": "#/$defs/RelationType"
+        },
+        "weight": {
+          "default": 1.0,
+          "exclusiveMinimum": 0.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "type"
+      ],
+      "title": "Relation",
+      "type": "object"
+    },
+    "RelationType": {
+      "enum": [
+        "adjacent",
+        "near",
+        "far",
+        "incompatible"
+      ],
+      "title": "RelationType",
+      "type": "string"
+    },
+    "RoomRequest": {
+      "additionalProperties": false,
+      "description": "A request for ``count`` rooms of one type. Instances are named ``R_<type>_<k>``.",
+      "properties": {
+        "count": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "flexible_to": {
+          "default": [],
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-z][a-z0-9_]*$",
+            "type": "string"
+          },
+          "title": "Flexible To",
+          "type": "array"
+        },
+        "functional": {
+          "default": true,
+          "title": "Functional",
+          "type": "boolean"
+        },
+        "max_area_m2": {
+          "exclusiveMinimum": 0.0,
+          "title": "Max Area M2",
+          "type": "number"
+        },
+        "min_area_m2": {
+          "exclusiveMinimum": 0.0,
+          "title": "Min Area M2",
+          "type": "number"
+        },
+        "needs_window": {
+          "default": false,
+          "title": "Needs Window",
+          "type": "boolean"
+        },
+        "occupant_load": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Occupant Load",
+          "type": "integer"
+        },
+        "room_type": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "Room Type",
+          "type": "string"
+        },
+        "wet": {
+          "default": false,
+          "title": "Wet",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "room_type",
+        "min_area_m2",
+        "max_area_m2"
+      ],
+      "title": "RoomRequest",
+      "type": "object"
+    },
+    "Side": {
+      "enum": [
+        "north",
+        "south",
+        "east",
+        "west"
+      ],
+      "title": "Side",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured requirements. Lengths in metres, areas in square metres.",
+  "properties": {
+    "accessibility": {
+      "$ref": "#/$defs/AccessibilityRules"
+    },
+    "building_type": {
+      "$ref": "#/$defs/BuildingType"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "entrance_side": {
+      "$ref": "#/$defs/Side"
+    },
+    "floors": {
+      "maximum": 10,
+      "minimum": 1,
+      "title": "Floors",
+      "type": "integer"
+    },
+    "footprint": {
+      "$ref": "#/$defs/Footprint"
+    },
+    "future_changes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/FutureChange"
+      },
+      "title": "Future Changes",
+      "type": "array"
+    },
+    "occupancy": {
+      "$ref": "#/$defs/OccupancySpec"
+    },
+    "preferences": {
+      "$ref": "#/$defs/Preferences"
+    },
+    "relations": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Relation"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "rooms": {
+      "items": {
+        "$ref": "#/$defs/RoomRequest"
+      },
+      "minItems": 1,
+      "title": "Rooms",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Text"
+    },
+    "spec_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Spec Id",
+      "type": "string"
+    },
+    "window_sides": {
+      "items": {
+        "$ref": "#/$defs/Side"
+      },
+      "minItems": 1,
+      "title": "Window Sides",
+      "type": "array"
+    }
+  },
+  "required": [
+    "spec_id",
+    "building_type",
+    "footprint",
+    "floors",
+    "entrance_side",
+    "window_sides",
+    "rooms",
+    "occupancy"
+  ],
+  "title": "BuildingSpec",
+  "type": "object"
+}

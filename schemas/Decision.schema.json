@@ -1,0 +1,91 @@
+{
+  "$defs": {
+    "DecisionSource": {
+      "enum": [
+        "planner",
+        "rl",
+        "baseline"
+      ],
+      "title": "DecisionSource",
+      "type": "string"
+    },
+    "Route": {
+      "additionalProperties": false,
+      "properties": {
+        "est_dose": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "title": "Est Dose",
+          "type": "number"
+        },
+        "est_time_s": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "title": "Est Time S",
+          "type": "number"
+        },
+        "nodes": {
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^N_[a-z]+_[0-9]+$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Nodes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "nodes"
+      ],
+      "title": "Route",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "alternatives": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Route"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "group_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^G_[a-z0-9_]+$",
+      "title": "Group Id",
+      "type": "string"
+    },
+    "route": {
+      "$ref": "#/$defs/Route"
+    },
+    "source": {
+      "$ref": "#/$defs/DecisionSource",
+      "default": "planner"
+    },
+    "t_s": {
+      "minimum": 0.0,
+      "title": "T S",
+      "type": "number"
+    },
+    "target_exit": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^E_[0-9]+$",
+      "title": "Target Exit",
+      "type": "string"
+    }
+  },
+  "required": [
+    "group_id",
+    "t_s",
+    "target_exit",
+    "route"
+  ],
+  "title": "Decision",
+  "type": "object"
+}

@@ -1,0 +1,696 @@
+{
+  "$defs": {
+    "ConflictSet": {
+      "additionalProperties": false,
+      "description": "A minimal group of constraints that cannot all hold, with a readable explanation.",
+      "properties": {
+        "constraint_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Constraint Ids",
+          "type": "array"
+        },
+        "explanation": {
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "constraint_ids",
+        "explanation"
+      ],
+      "title": "ConflictSet",
+      "type": "object"
+    },
+    "ConstraintKind": {
+      "enum": [
+        "hard",
+        "soft"
+      ],
+      "title": "ConstraintKind",
+      "type": "string"
+    },
+    "ConstraintResult": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint_id": {
+          "minLength": 1,
+          "title": "Constraint Id",
+          "type": "string"
+        },
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "entity_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Entity Ids",
+          "type": "array"
+        },
+        "kind": {
+          "$ref": "#/$defs/ConstraintKind"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "satisfied": {
+          "title": "Satisfied",
+          "type": "boolean"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "constraint_id",
+        "kind",
+        "satisfied"
+      ],
+      "title": "ConstraintResult",
+      "type": "object"
+    },
+    "CorridorPlacement": {
+      "additionalProperties": false,
+      "properties": {
+        "corridor_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^C_[0-9]+$",
+          "title": "Corridor Id",
+          "type": "string"
+        },
+        "floor": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "rect": {
+          "$ref": "#/$defs/Rect"
+        }
+      },
+      "required": [
+        "corridor_id",
+        "rect"
+      ],
+      "title": "CorridorPlacement",
+      "type": "object"
+    },
+    "Door": {
+      "additionalProperties": false,
+      "properties": {
+        "a": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|C_[0-9]+|E_[0-9]+|S_[0-9]+|L_[0-9]+)$",
+          "title": "A",
+          "type": "string"
+        },
+        "b": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|C_[0-9]+|E_[0-9]+|S_[0-9]+|L_[0-9]+)$",
+          "title": "B",
+          "type": "string"
+        },
+        "door_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^D_[0-9]+$",
+          "title": "Door Id",
+          "type": "string"
+        },
+        "floor": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "state": {
+          "$ref": "#/$defs/DoorState",
+          "default": "open"
+        },
+        "width_cells": {
+          "minimum": 1,
+          "title": "Width Cells",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "door_id",
+        "a",
+        "b",
+        "x",
+        "y",
+        "width_cells"
+      ],
+      "title": "Door",
+      "type": "object"
+    },
+    "DoorState": {
+      "enum": [
+        "open",
+        "closed",
+        "stuck"
+      ],
+      "title": "DoorState",
+      "type": "string"
+    },
+    "Exit": {
+      "additionalProperties": false,
+      "properties": {
+        "connects_to": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^(R_[a-z][a-z0-9_]*_[0-9]+|C_[0-9]+|E_[0-9]+|S_[0-9]+|L_[0-9]+)$",
+          "title": "Connects To",
+          "type": "string"
+        },
+        "exit_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^E_[0-9]+$",
+          "title": "Exit Id",
+          "type": "string"
+        },
+        "floor": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "side": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Side"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "width_cells": {
+          "minimum": 1,
+          "title": "Width Cells",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "exit_id",
+        "x",
+        "y",
+        "width_cells",
+        "connects_to"
+      ],
+      "title": "Exit",
+      "type": "object"
+    },
+    "FloorPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "corridors": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CorridorPlacement"
+          },
+          "title": "Corridors",
+          "type": "array"
+        },
+        "doors": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Door"
+          },
+          "title": "Doors",
+          "type": "array"
+        },
+        "exits": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Exit"
+          },
+          "title": "Exits",
+          "type": "array"
+        },
+        "floor": {
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "rooms": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RoomPlacement"
+          },
+          "title": "Rooms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "floor"
+      ],
+      "title": "FloorPlan",
+      "type": "object"
+    },
+    "LayoutProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "generator": {
+          "minLength": 1,
+          "title": "Generator",
+          "type": "string"
+        },
+        "parent_layout_id": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^LY_[A-Za-z0-9_\\-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Layout Id"
+        },
+        "repair_move_id": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^MV_[0-9]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Repair Move Id"
+        },
+        "seed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "generator"
+      ],
+      "title": "LayoutProvenance",
+      "type": "object"
+    },
+    "Lift": {
+      "additionalProperties": false,
+      "properties": {
+        "accessible": {
+          "default": true,
+          "title": "Accessible",
+          "type": "boolean"
+        },
+        "floors": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 2,
+          "title": "Floors",
+          "type": "array"
+        },
+        "lift_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^L_[0-9]+$",
+          "title": "Lift Id",
+          "type": "string"
+        },
+        "rect": {
+          "$ref": "#/$defs/Rect"
+        }
+      },
+      "required": [
+        "lift_id",
+        "rect",
+        "floors"
+      ],
+      "title": "Lift",
+      "type": "object"
+    },
+    "Rect": {
+      "additionalProperties": false,
+      "description": "Axis-aligned rectangle in grid cells. (x, y) is the south-west corner.",
+      "properties": {
+        "d": {
+          "minimum": 1,
+          "title": "D",
+          "type": "integer"
+        },
+        "w": {
+          "minimum": 1,
+          "title": "W",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "w",
+        "d"
+      ],
+      "title": "Rect",
+      "type": "object"
+    },
+    "RoomPlacement": {
+      "additionalProperties": false,
+      "description": "A placed room.\n\n``room_id`` is a stable identity: it never changes during repair or conversion. Its type\npart records the type the room was *created* as. ``room_type`` is the current type; after a\nconversion (for example classroom to lab) the id keeps the original type and\n``converted_from`` records it.",
+      "properties": {
+        "converted_from": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^[a-z][a-z0-9_]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Converted From"
+        },
+        "floor": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "rect": {
+          "$ref": "#/$defs/Rect"
+        },
+        "room_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^R_[a-z][a-z0-9_]*_[0-9]+$",
+          "title": "Room Id",
+          "type": "string"
+        },
+        "room_type": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]*$",
+          "title": "Room Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "room_id",
+        "room_type",
+        "rect"
+      ],
+      "title": "RoomPlacement",
+      "type": "object"
+    },
+    "Side": {
+      "enum": [
+        "north",
+        "south",
+        "east",
+        "west"
+      ],
+      "title": "Side",
+      "type": "string"
+    },
+    "SoftScore": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "minimum": 0.0,
+          "title": "Cost",
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "weight": {
+          "default": 1.0,
+          "minimum": 0.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "cost"
+      ],
+      "title": "SoftScore",
+      "type": "object"
+    },
+    "Stair": {
+      "additionalProperties": false,
+      "properties": {
+        "floors": {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 2,
+          "title": "Floors",
+          "type": "array"
+        },
+        "rect": {
+          "$ref": "#/$defs/Rect"
+        },
+        "stair_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^S_[0-9]+$",
+          "title": "Stair Id",
+          "type": "string"
+        },
+        "width_cells": {
+          "minimum": 1,
+          "title": "Width Cells",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "stair_id",
+        "rect",
+        "floors",
+        "width_cells"
+      ],
+      "title": "Stair",
+      "type": "object"
+    },
+    "Verification": {
+      "additionalProperties": false,
+      "properties": {
+        "conflicts": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ConflictSet"
+          },
+          "title": "Conflicts",
+          "type": "array"
+        },
+        "hard": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ConstraintResult"
+          },
+          "title": "Hard",
+          "type": "array"
+        },
+        "soft": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SoftScore"
+          },
+          "title": "Soft",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/VerificationStatus",
+          "default": "unchecked"
+        }
+      },
+      "title": "Verification",
+      "type": "object"
+    },
+    "VerificationStatus": {
+      "enum": [
+        "unchecked",
+        "checked"
+      ],
+      "title": "VerificationStatus",
+      "type": "string"
+    },
+    "VerticalCore": {
+      "additionalProperties": false,
+      "description": "Stairs and lifts. One rectangle per shaft, shared by all floors it serves.",
+      "properties": {
+        "lifts": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Lift"
+          },
+          "title": "Lifts",
+          "type": "array"
+        },
+        "stairs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Stair"
+          },
+          "title": "Stairs",
+          "type": "array"
+        }
+      },
+      "title": "VerticalCore",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Rooms, corridors, doors, exits, stairs and lifts on an integer cell grid.\n\nConventions: plan view, x grows east, y grows north, origin at the south-west corner of\nthe footprint; floor is an integer index (0 = ground). Lengths in metres, areas in square\nmetres, times in seconds; geometry is stored as integer cells of cell_size_m metres.\nRoom ids are stable identities and never change across repair.",
+  "properties": {
+    "cell_size_m": {
+      "default": 0.5,
+      "exclusiveMinimum": 0.0,
+      "title": "Cell Size M",
+      "type": "number"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "floors": {
+      "items": {
+        "$ref": "#/$defs/FloorPlan"
+      },
+      "minItems": 1,
+      "title": "Floors",
+      "type": "array"
+    },
+    "grid_d": {
+      "minimum": 1,
+      "title": "Grid D",
+      "type": "integer"
+    },
+    "grid_w": {
+      "minimum": 1,
+      "title": "Grid W",
+      "type": "integer"
+    },
+    "layout_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^LY_[A-Za-z0-9_\\-]+$",
+      "title": "Layout Id",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/LayoutProvenance"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "spec_hash": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Spec Hash",
+      "type": "string"
+    },
+    "verification": {
+      "$ref": "#/$defs/Verification"
+    },
+    "vertical_core": {
+      "$ref": "#/$defs/VerticalCore"
+    }
+  },
+  "required": [
+    "layout_id",
+    "spec_hash",
+    "grid_w",
+    "grid_d",
+    "floors",
+    "provenance"
+  ],
+  "title": "Layout",
+  "type": "object"
+}

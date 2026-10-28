@@ -1,0 +1,15 @@
+# Hazard variant A: used for tuning and training. Placeholder parameters.
+schema_version: "1.0.0"
+hazard_id: hazard_a
+variant: A
+description: Neighbour-only fire spread, moderate smoke diffusion.
+params:
+  spread_kernel: neighbour
+  spread_prob_open_door: 0.25
+  spread_prob_closed_door: 0.02
+  spread_prob_open_space: 0.35
+  smoke_generation: 0.15
+  smoke_diffusion: 0.20
+  smoke_decay: 0.02
+state_mapping: {smoky_min: 0.15, fire_min: 0.80}
+sourcing: {basis: assumption, note: "simplified graph model, not CFD; parameters are placeholders"}

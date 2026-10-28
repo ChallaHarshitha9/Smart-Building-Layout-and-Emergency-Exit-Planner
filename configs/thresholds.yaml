@@ -1,0 +1,41 @@
+# PLACEHOLDER VALUES. basis: assumption means "not yet taken from a cited source".
+# Replace each with a value from the building code or fire-engineering reference the team
+# cites, then change basis to code/reference and fill in `source`.
+schema_version: "1.0.0"
+thresholds_id: default_placeholder
+min_corridor_width_m:
+  value: 1.5
+  unit: m
+  sourcing: &asm {basis: assumption, note: "PLACEHOLDER - replace with cited value"}
+min_door_width_m:
+  value: 0.9
+  unit: m
+  sourcing: *asm
+min_exit_width_m:
+  value: 1.0
+  unit: m
+  sourcing: *asm
+max_travel_distance_m:
+  value: 30.0
+  unit: m
+  sourcing: *asm
+incompatible_min_separation_m:
+  value: 10.0
+  unit: m
+  sourcing: *asm
+specific_flow_pers_per_m_s:
+  value: 1.3
+  unit: persons/(m*s)
+  sourcing: *asm
+near_reference_distance_m:
+  value: 15.0
+  unit: m
+  sourcing: *asm
+far_reference_distance_m:
+  value: 20.0
+  unit: m
+  sourcing: *asm
+min_exit_count:
+  value: 2
+  unit: count
+  sourcing: *asm

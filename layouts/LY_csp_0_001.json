@@ -1,0 +1,422 @@
+{
+  "schema_version": "1.1.0",
+  "content_hash": null,
+  "layout_id": "LY_csp_0_001",
+  "spec_hash": "e9b1d5e0018f97f98c65f07c6a0242fe2d2eccc480892bf3980966ee392161d9",
+  "cell_size_m": 0.5,
+  "grid_w": 48,
+  "grid_d": 28,
+  "floors": [
+    {
+      "floor": 0,
+      "rooms": [
+        {
+          "room_id": "R_meeting_room_1",
+          "room_type": "meeting_room",
+          "floor": 0,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 5,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_office_1",
+          "room_type": "office",
+          "floor": 0,
+          "rect": {
+            "x": 5,
+            "y": 0,
+            "w": 4,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_office_3",
+          "room_type": "office",
+          "floor": 0,
+          "rect": {
+            "x": 9,
+            "y": 0,
+            "w": 4,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_open_office_1",
+          "room_type": "open_office",
+          "floor": 0,
+          "rect": {
+            "x": 13,
+            "y": 0,
+            "w": 20,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_toilet_1",
+          "room_type": "toilet",
+          "floor": 0,
+          "rect": {
+            "x": 33,
+            "y": 0,
+            "w": 3,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_meeting_room_2",
+          "room_type": "meeting_room",
+          "floor": 0,
+          "rect": {
+            "x": 0,
+            "y": 16,
+            "w": 5,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_office_2",
+          "room_type": "office",
+          "floor": 0,
+          "rect": {
+            "x": 5,
+            "y": 16,
+            "w": 4,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_office_4",
+          "room_type": "office",
+          "floor": 0,
+          "rect": {
+            "x": 9,
+            "y": 16,
+            "w": 5,
+            "d": 12
+          },
+          "converted_from": null
+        },
+        {
+          "room_id": "R_reception_1",
+          "room_type": "reception",
+          "floor": 0,
+          "rect": {
+            "x": 14,
+            "y": 16,
+            "w": 10,
+            "d": 12
+          },
+          "converted_from": null
+        }
+      ],
+      "corridors": [
+        {
+          "corridor_id": "C_1",
+          "floor": 0,
+          "rect": {
+            "x": 0,
+            "y": 12,
+            "w": 48,
+            "d": 4
+          }
+        }
+      ],
+      "doors": [
+        {
+          "door_id": "D_1",
+          "floor": 0,
+          "a": "R_meeting_room_1",
+          "b": "C_1",
+          "x": 1,
+          "y": 12,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_2",
+          "floor": 0,
+          "a": "R_office_1",
+          "b": "C_1",
+          "x": 6,
+          "y": 12,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_3",
+          "floor": 0,
+          "a": "R_office_3",
+          "b": "C_1",
+          "x": 10,
+          "y": 12,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_4",
+          "floor": 0,
+          "a": "R_open_office_1",
+          "b": "C_1",
+          "x": 22,
+          "y": 12,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_5",
+          "floor": 0,
+          "a": "R_toilet_1",
+          "b": "C_1",
+          "x": 33,
+          "y": 12,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_6",
+          "floor": 0,
+          "a": "R_meeting_room_2",
+          "b": "C_1",
+          "x": 1,
+          "y": 16,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_7",
+          "floor": 0,
+          "a": "R_office_2",
+          "b": "C_1",
+          "x": 6,
+          "y": 16,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_8",
+          "floor": 0,
+          "a": "R_office_4",
+          "b": "C_1",
+          "x": 10,
+          "y": 16,
+          "width_cells": 2,
+          "state": "open"
+        },
+        {
+          "door_id": "D_9",
+          "floor": 0,
+          "a": "R_reception_1",
+          "b": "C_1",
+          "x": 18,
+          "y": 16,
+          "width_cells": 2,
+          "state": "open"
+        }
+      ],
+      "exits": [
+        {
+          "exit_id": "E_1",
+          "floor": 0,
+          "x": 0,
+          "y": 12,
+          "width_cells": 3,
+          "connects_to": "C_1",
+          "side": "west"
+        },
+        {
+          "exit_id": "E_2",
+          "floor": 0,
+          "x": 48,
+          "y": 12,
+          "width_cells": 3,
+          "connects_to": "C_1",
+          "side": "east"
+        }
+      ]
+    }
+  ],
+  "vertical_core": {
+    "stairs": [],
+    "lifts": []
+  },
+  "verification": {
+    "status": "checked",
+    "hard": [
+      {
+        "constraint_id": "HC_floor_count",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 1.0,
+        "limit": 1.0,
+        "detail": "layout has the 1 required floor(s)",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_required_rooms",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "room counts match the spec",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_room_area",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "9 room area(s) are within the requested ranges",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_inside_footprint",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "everything lies inside the footprint grid, and the grid matches the spec",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_no_overlap",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 0.0,
+        "limit": 0.0,
+        "detail": "no rooms, corridors, stairs or lifts overlap",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_door_placement",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "all 9 door(s) sit on the shared wall of the two regions they connect",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_exit_placement",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "all 2 exit(s) sit on the footprint boundary next to the region they serve",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_connectivity",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "all 9 room(s) are connected to an exit",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_min_exit_count",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 2.0,
+        "limit": 2.0,
+        "detail": "2 valid exit(s) on the ground floor, at least 2 configured",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_exit_width",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 1.5,
+        "limit": 1.0,
+        "detail": "exit width is at least 1.00 m",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_corridor_width",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 2.0,
+        "limit": 1.5,
+        "detail": "corridor width is at least 1.50 m",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_door_width",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 1.0,
+        "limit": 0.9,
+        "detail": "door width is at least 0.90 m",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_travel_distance",
+        "kind": "hard",
+        "satisfied": true,
+        "value": 15.75,
+        "limit": 30.0,
+        "detail": "walking distance to the nearest exit is at most 30.00 m (longest 15.75 m)",
+        "entity_ids": []
+      },
+      {
+        "constraint_id": "HC_step_free_access",
+        "kind": "hard",
+        "satisfied": true,
+        "value": null,
+        "limit": null,
+        "detail": "every connected room has a step-free route to an exit",
+        "entity_ids": []
+      }
+    ],
+    "soft": [
+      {
+        "name": "adjacency",
+        "cost": 0.0,
+        "weight": 1.0
+      },
+      {
+        "name": "daylight",
+        "cost": 0.0,
+        "weight": 1.0
+      },
+      {
+        "name": "ventilation",
+        "cost": 0.0,
+        "weight": 1.0
+      },
+      {
+        "name": "energy",
+        "cost": 0.9333333333333333,
+        "weight": 1.0
+      },
+      {
+        "name": "adaptability",
+        "cost": 1.0,
+        "weight": 1.0
+      },
+      {
+        "name": "usable_area",
+        "cost": 0.4910714285714286,
+        "weight": 1.0
+      }
+    ],
+    "conflicts": []
+  },
+  "provenance": {
+    "generator": "csp_solver",
+    "seed": 0,
+    "parent_layout_id": null,
+    "repair_move_id": null
+  }
+}

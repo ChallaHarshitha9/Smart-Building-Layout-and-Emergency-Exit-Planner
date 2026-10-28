@@ -1,0 +1,202 @@
+{
+  "$defs": {
+    "ConstructionTask": {
+      "additionalProperties": false,
+      "properties": {
+        "cost_units": {
+          "minimum": 0.0,
+          "title": "Cost Units",
+          "type": "number"
+        },
+        "depends_on": {
+          "default": [],
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^T_[a-z0-9_]+$",
+            "type": "string"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "duration_days": {
+          "minimum": 0.0,
+          "title": "Duration Days",
+          "type": "number"
+        },
+        "effects": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Effects",
+          "type": "array"
+        },
+        "preconditions": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "target_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Id"
+        },
+        "task_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^T_[a-z0-9_]+$",
+          "title": "Task Id",
+          "type": "string"
+        },
+        "task_type": {
+          "$ref": "#/$defs/ConstructionTaskType"
+        }
+      },
+      "required": [
+        "task_id",
+        "task_type",
+        "duration_days",
+        "cost_units"
+      ],
+      "title": "ConstructionTask",
+      "type": "object"
+    },
+    "ConstructionTaskType": {
+      "enum": [
+        "structure",
+        "prepare_space",
+        "build_walls",
+        "install_door",
+        "place_utilities",
+        "install_safety_equipment",
+        "build_corridor",
+        "build_exit"
+      ],
+      "title": "ConstructionTaskType",
+      "type": "string"
+    },
+    "ScheduledTask": {
+      "additionalProperties": false,
+      "properties": {
+        "end_day": {
+          "minimum": 0.0,
+          "title": "End Day",
+          "type": "number"
+        },
+        "start_day": {
+          "minimum": 0.0,
+          "title": "Start Day",
+          "type": "number"
+        },
+        "task_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^T_[a-z0-9_]+$",
+          "title": "Task Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_id",
+        "start_day",
+        "end_day"
+      ],
+      "title": "ScheduledTask",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "critical_path": {
+      "default": [],
+      "items": {
+        "maxLength": 96,
+        "minLength": 1,
+        "pattern": "^T_[a-z0-9_]+$",
+        "type": "string"
+      },
+      "title": "Critical Path",
+      "type": "array"
+    },
+    "layout_geometry_hash": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Layout Geometry Hash",
+      "type": "string"
+    },
+    "plan_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "schedule": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ScheduledTask"
+      },
+      "title": "Schedule",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tasks": {
+      "items": {
+        "$ref": "#/$defs/ConstructionTask"
+      },
+      "minItems": 1,
+      "title": "Tasks",
+      "type": "array"
+    },
+    "total_cost_units": {
+      "default": 0.0,
+      "minimum": 0.0,
+      "title": "Total Cost Units",
+      "type": "number"
+    },
+    "total_duration_days": {
+      "default": 0.0,
+      "minimum": 0.0,
+      "title": "Total Duration Days",
+      "type": "number"
+    }
+  },
+  "required": [
+    "plan_id",
+    "layout_geometry_hash",
+    "tasks"
+  ],
+  "title": "ConstructionPlan",
+  "type": "object"
+}

@@ -1,0 +1,86 @@
+{
+  "$defs": {
+    "CaseExpectation": {
+      "enum": [
+        "passes",
+        "fails"
+      ],
+      "title": "CaseExpectation",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Paths are relative to the folder that contains the case file.",
+  "properties": {
+    "case_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "description": {
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "expect": {
+      "$ref": "#/$defs/CaseExpectation"
+    },
+    "expected_violations": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Violations",
+      "type": "array"
+    },
+    "layout": {
+      "minLength": 1,
+      "title": "Layout",
+      "type": "string"
+    },
+    "period": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_\\-]*$",
+      "title": "Period",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "spec": {
+      "minLength": 1,
+      "title": "Spec",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "description",
+    "spec",
+    "layout",
+    "period",
+    "expect"
+  ],
+  "title": "ReferenceCase",
+  "type": "object"
+}

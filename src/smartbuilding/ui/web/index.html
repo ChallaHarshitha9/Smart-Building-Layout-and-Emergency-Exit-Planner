@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Building Studio</title>
+<style>
+:root{--bg:#0f1420;--panel:#171e2d;--panel2:#1e2739;--line:#2b3750;--text:#e6ebf5;--mute:#93a0b8;--acc:#4da3ff;--ok:#3ecf8e;--bad:#ff6b6b;--warn:#ffb454}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:13px/1.4 system-ui,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#app{display:grid;grid-template-columns:320px 1fr 360px;grid-template-rows:46px 1fr 64px;height:100%}
+header{grid-column:1/4;display:flex;align-items:center;gap:18px;padding:0 14px;background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:15px;margin:0;font-weight:650;letter-spacing:.2px}
+.tabs{display:flex;gap:4px}.tab{padding:6px 12px;border-radius:6px;cursor:pointer;color:var(--mute)}.tab.on{background:var(--panel2);color:var(--text)}
+.spacer{flex:1}.note{color:var(--mute);font-size:11px}
+aside{background:var(--panel);overflow:auto;padding:12px;border-right:1px solid var(--line)}
+aside.right{border-right:0;border-left:1px solid var(--line)}
+#stage{position:relative;background:radial-gradient(circle at 50% 30%,#26324b,#0f1420 70%)}
+canvas{display:block;width:100%;height:100%}
+h3{margin:14px 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--mute)}
+h3:first-child{margin-top:0}
+select,input,button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit}
+button{cursor:pointer}button:hover{border-color:var(--acc)}button.primary{background:var(--acc);border-color:var(--acc);color:#04101f;font-weight:650}
+button.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.row{display:flex;gap:6px;align-items:center;margin:6px 0;flex-wrap:wrap}.row>label{color:var(--mute);min-width:70px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:4px 9px;border:1px solid var(--line);border-radius:14px;cursor:pointer;background:var(--panel2)}.chip.on{border-color:var(--acc);color:var(--acc)}
+.rule{display:flex;gap:6px;padding:4px 6px;border-radius:5px;cursor:pointer;align-items:flex-start}.rule:hover{background:var(--panel2)}
+.dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:none}.ok{background:var(--ok)}.no{background:var(--bad)}
+.rule small{color:var(--mute);display:block}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}.bar>i{display:block;height:100%;background:var(--acc)}
+.card{border:1px solid var(--line);border-radius:8px;padding:8px;margin:6px 0;background:var(--panel2);cursor:pointer}
+.card.on{border-color:var(--acc)}.card.best{box-shadow:0 0 0 1px var(--ok) inset}
+.card h4{margin:0 0 4px;font-size:12px;display:flex;justify-content:space-between}
+.kv{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:11px;color:var(--mute)}.kv b{color:var(--text);display:block;font-size:13px}
+#timeline{grid-column:1/4;display:flex;align-items:center;gap:12px;padding:0 14px;background:var(--panel);border-top:1px solid var(--line)}
+#scrub{flex:1}#tlabel{min-width:210px;font-variant-numeric:tabular-nums}
+#toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:#000b;padding:6px 12px;border-radius:14px;display:none}
+#hud{position:absolute;left:12px;bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+#legend{position:absolute;right:12px;bottom:12px;background:#0009;padding:8px 10px;border-radius:8px;font-size:11px;color:var(--mute)}
+#legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.gantt{position:relative}.grow{display:flex;align-items:center;height:16px;margin:2px 0;font-size:10px;color:var(--mute)}
+.glabel{width:96px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gtrack{position:relative;flex:1;height:10px;background:#0003}
+.gbar{position:absolute;height:10px;border-radius:3px;background:var(--acc)}.gbar.crit{background:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:11px}td,th{border-bottom:1px solid var(--line);padding:3px 4px;text-align:left}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>Smart Building Studio</h1>
+    <div class="tabs"><div class="tab on" data-tab="evac">Evacuation</div><div class="tab" data-tab="build">Construction</div><div class="tab" data-tab="e0">E0 benchmark</div></div>
+    <div class="spacer"></div>
+    <div class="note">Constraint-checked against the configured rules. Dose is a proxy, not FED. Simulated; not a substitute for professional approval.</div>
+  </header>
+  <aside id="left">
+    <h3>Building</h3>
+    <div class="row"><select id="spec"></select></div>
+    <div class="row"><label>Seed</label><input id="seed" type="number" value="0" style="width:70px"><label style="min-width:auto">Layouts</label><input id="k" type="number" value="3" min="1" max="6" style="width:52px"><button class="primary" id="solve">Generate</button></div>
+    <div id="solveinfo" class="note"></div>
+    <h3>Candidates</h3><div class="chips" id="cands"></div>
+    <h3>Hard constraints <span id="csr" class="note"></span></h3><div id="rules"></div>
+    <h3>Soft preferences (lower is better)</h3><div id="soft"></div>
+  </aside>
+  <div id="stage"><canvas id="c"></canvas><div id="toast"></div>
+    <div id="hud">
+      <button data-cam="iso">Iso</button><button data-cam="top">Top</button><button data-cam="side">Side</button><button data-cam="follow" id="follow">Follow crowd</button>
+      <button id="routes" class="on">Routes</button><button id="lensb">Lens: truth</button>
+    </div>
+    <div id="legend"><i style="background:#3ecf8e"></i>low dose <i style="background:#ffd166;margin-left:8px"></i>alert <i style="background:#ff9f43;margin-left:8px"></i>critical <i style="background:#ff4d4d;margin-left:8px"></i>severe</div>
+  </div>
+  <aside class="right" id="right">
+    <div id="p-evac">
+      <h3>Scenario</h3>
+      <div class="chips" id="modes"></div>
+      <div class="row"><label>Block time</label><input id="btime" type="number" value="5" style="width:64px"> s <span class="note">for exit / second fire</span></div>
+      <div id="evlist" class="chips"></div>
+      <div class="row"><label>Occupancy</label><select id="period"></select><label style="min-width:auto">Hazard</label><select id="hazard"><option>A</option><option>B</option></select></div>
+      <div class="row"><label>Seed</label><input id="sseed" type="number" value="42" style="width:70px"><button class="primary" id="run">Run all methods</button></div>
+      <div id="runinfo" class="note">Choose <b>Place fire</b> and click a room.</div>
+      <h3>Mean dose proxy over time</h3><canvas id="ch1" width="330" height="110" style="height:110px"></canvas>
+      <h3>Evacuated people over time</h3><canvas id="ch2" width="330" height="110" style="height:110px"></canvas>
+      <h3>Methods (click to show)</h3><div id="cards"></div>
+      <div class="row"><label>Compare</label><select id="cmp"><option value="">none</option></select></div>
+      <div class="note" id="mdesc"></div>
+    </div>
+    <div id="p-build" class="hidden"><h3>Construction schedule</h3><div class="row"><label>Day</label><input id="day" type="range" min="0" max="100" value="100" style="flex:1"><span id="daylab"></span></div><div id="gantt" class="gantt"></div><div class="note" id="cinfo"></div></div>
+    <div id="p-e0" class="hidden"><h3>E0 sanity benchmark</h3><div class="note">SafeStep-style toy corridor, 20 seeds. A sanity check, not a result.</div><div class="row"><button class="primary" id="rune0">Run E0</button></div><div id="e0out"></div></div>
+    <h3>Selected</h3><div id="sel" class="note">Click a room.</div>
+  </aside>
+  <div id="timeline"><button id="play">Play</button><button id="restart">Restart</button><input id="scrub" type="range" min="0" max="0" value="0" step="0.01"><select id="speed"><option>0.5</option><option selected>1</option><option>2</option><option>4</option><option>8</option></select>x<div id="tlabel"></div></div>
+</div>
+<script src="app.js"></script>
+</body></html>

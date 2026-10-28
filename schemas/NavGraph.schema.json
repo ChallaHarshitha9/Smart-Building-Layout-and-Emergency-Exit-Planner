@@ -1,0 +1,199 @@
+{
+  "$defs": {
+    "NavEdge": {
+      "additionalProperties": false,
+      "description": "Undirected edge. Endpoints are stored in sorted order so equal graphs hash equally.",
+      "properties": {
+        "accessible": {
+          "default": true,
+          "title": "Accessible",
+          "type": "boolean"
+        },
+        "door_id": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^D_[0-9]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Door Id"
+        },
+        "length_m": {
+          "exclusiveMinimum": 0.0,
+          "title": "Length M",
+          "type": "number"
+        },
+        "stairs": {
+          "default": false,
+          "title": "Stairs",
+          "type": "boolean"
+        },
+        "u": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^N_[a-z]+_[0-9]+$",
+          "title": "U",
+          "type": "string"
+        },
+        "v": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^N_[a-z]+_[0-9]+$",
+          "title": "V",
+          "type": "string"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0.0,
+          "title": "Width M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "u",
+        "v",
+        "length_m",
+        "width_m"
+      ],
+      "title": "NavEdge",
+      "type": "object"
+    },
+    "NavNode": {
+      "additionalProperties": false,
+      "properties": {
+        "area_m2": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "title": "Area M2",
+          "type": "number"
+        },
+        "capacity_pers": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "title": "Capacity Pers",
+          "type": "number"
+        },
+        "floor": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Floor",
+          "type": "integer"
+        },
+        "kind": {
+          "$ref": "#/$defs/NodeKind"
+        },
+        "node_id": {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^N_[a-z]+_[0-9]+$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "region_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Region Id"
+        },
+        "x_m": {
+          "title": "X M",
+          "type": "number"
+        },
+        "y_m": {
+          "title": "Y M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "node_id",
+        "kind",
+        "x_m",
+        "y_m"
+      ],
+      "title": "NavNode",
+      "type": "object"
+    },
+    "NodeKind": {
+      "enum": [
+        "room",
+        "door",
+        "corridor",
+        "stair",
+        "lift",
+        "exit"
+      ],
+      "title": "NodeKind",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Navigation graph. Node positions are in metres (x east, y north, origin south-west).",
+  "properties": {
+    "cell_size_m": {
+      "default": 0.5,
+      "exclusiveMinimum": 0.0,
+      "title": "Cell Size M",
+      "type": "number"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "maxLength": 96,
+          "minLength": 1,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "derived_from": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Derived From",
+      "type": "string"
+    },
+    "edges": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/NavEdge"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/NavNode"
+      },
+      "minItems": 1,
+      "title": "Nodes",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "1.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "derived_from",
+    "nodes"
+  ],
+  "title": "NavGraph",
+  "type": "object"
+}

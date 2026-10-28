@@ -1,0 +1,15 @@
+# Hazard variant B: held-out. Different spread structure and smoke dynamics. Test only.
+schema_version: "1.0.0"
+hazard_id: hazard_b
+variant: B
+description: Two-hop fire spread, faster smoke diffusion, slower decay.
+params:
+  spread_kernel: two_hop
+  spread_prob_open_door: 0.30
+  spread_prob_closed_door: 0.05
+  spread_prob_open_space: 0.45
+  smoke_generation: 0.20
+  smoke_diffusion: 0.30
+  smoke_decay: 0.01
+state_mapping: {smoky_min: 0.15, fire_min: 0.80}
+sourcing: {basis: assumption, note: "held-out variant for robustness tests; placeholders"}

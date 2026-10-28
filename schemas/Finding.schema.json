@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "FindingKind": {
+      "enum": [
+        "congested_edge",
+        "exit_overloaded",
+        "high_dose_room",
+        "travel_distance_violation",
+        "accessibility_gap"
+      ],
+      "title": "FindingKind",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "detail": {
+      "default": "",
+      "title": "Detail",
+      "type": "string"
+    },
+    "entity_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Entity Ids",
+      "type": "array"
+    },
+    "finding_id": {
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^F_[0-9]+$",
+      "title": "Finding Id",
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "#/$defs/FindingKind"
+    },
+    "severity": {
+      "minimum": 0.0,
+      "title": "Severity",
+      "type": "number"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value"
+    }
+  },
+  "required": [
+    "finding_id",
+    "kind",
+    "severity",
+    "entity_ids"
+  ],
+  "title": "Finding",
+  "type": "object"
+}
